@@ -1,5 +1,4 @@
-// main.c - EC + AS7263 + ThingsBoard con FreeRTOS
-// Versión con tareas paralelas para ESP-IDF
+//Monitor Nutrientes Version Final
 
 #include <stdio.h>
 #include <string.h>
