@@ -1,1 +1,1 @@
-Este Codigo Forma parte d un Proyecto de la Asignatura SBC de la escuela Politecnica de Madrid en el que se busca una manera de mantener los nutrientes en un ciclo de agua en unos valores determinados
+Este Codigo Forma parte de un Proyecto de la Asignatura SBC de la escuela Politecnica de Madrid en el que se busca una manera de mantener los nutrientes en un ciclo de agua en unos valores determinados
