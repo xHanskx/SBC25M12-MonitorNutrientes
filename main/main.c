@@ -166,7 +166,7 @@ static void ec_reading_task(void *pvParameters) {
         }
 
         ESP_LOGI(TAG, "EC: %.3f mS/cm (voltaje: %.3f V)", ec_value, voltage);
-        ESP_LOGI(TAG, "Relé 2 (EC>%.1f): %s", EC_THRESHOLD, relay2_active ? "ON" : "OFF");
+        ESP_LOGI(TAG, "Rele 2 (EC>%.1f): %s", EC_THRESHOLD, relay2_active ? "ON" : "OFF");
 
         vTaskDelay(5000 / portTICK_PERIOD_MS); // Cada 5 segundos
     }
@@ -235,7 +235,7 @@ static void nir_reading_task(void *pvParameters) {
                      data.r, data.s, data.t, data.u, data.v, data.w, data.temp);
         }
 
-        ESP_LOGI(TAG, "Relé 3 (NIR T>%d): %s", NIR_T_THRESHOLD, relay3_active ? "ON" : "OFF");
+        ESP_LOGI(TAG, "Rele 3 (NIR T>%d): %s", NIR_T_THRESHOLD, relay3_active ? "ON" : "OFF");
 
         vTaskDelay(5000 / portTICK_PERIOD_MS); // Cada 5 segundos
     }
@@ -431,14 +431,14 @@ static void init_relays(void) {
 
     relay1_active = relay2_active = relay3_active = false;
 
-    ESP_LOGI(TAG, "3 relés inicializados (todos apagados)");
+    ESP_LOGI(TAG, "3 reles inicializados (todos apagados)");
 }
 
 static void control_relay1(bool state) {
     if (xSemaphoreTake(relay_mutex, pdMS_TO_TICKS(1000)) == pdTRUE) {
         gpio_set_level(RELAY_PIN1, state ? 1 : 0);
         relay1_active = state;
-        ESP_LOGI(TAG, "Relé 1 (ThingsBoard) %s", state ? "ACTIVADO" : "DESACTIVADO");
+        ESP_LOGI(TAG, "Rele 1 (ThingsBoard) %s", state ? "ACTIVADO" : "DESACTIVADO");
         xSemaphoreGive(relay_mutex);
     }
 }
@@ -448,7 +448,7 @@ static void control_relay2(bool state) {
         gpio_set_level(RELAY_PIN2, state ? 1 : 0);
         relay2_active = state;
         vTaskDelay(1000 / portTICK_PERIOD_MS);
-        ESP_LOGI(TAG, "Relé 2 (EC>%.1f) %s", EC_THRESHOLD, state ? "ACTIVADO" : "DESACTIVADO");
+        ESP_LOGI(TAG, "Rele 2 (EC<%.1f) %s", EC_THRESHOLD, state ? "ACTIVADO" : "DESACTIVADO");
         xSemaphoreGive(relay_mutex);
     }
 }
@@ -458,7 +458,7 @@ static void control_relay3(bool state) {
         gpio_set_level(RELAY_PIN3, state ? 1 : 0);
         relay3_active = state;
         vTaskDelay(1000 / portTICK_PERIOD_MS);
-        ESP_LOGI(TAG, "Relé 3 (NIR T>%d) %s", NIR_T_THRESHOLD, state ? "ACTIVADO" : "DESACTIVADO");
+        ESP_LOGI(TAG, "Rele 3 (NIR T<%d) %s", NIR_T_THRESHOLD, state ? "ACTIVADO" : "DESACTIVADO");
         xSemaphoreGive(relay_mutex);
     }
 }
